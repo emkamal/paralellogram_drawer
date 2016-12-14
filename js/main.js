@@ -11,6 +11,10 @@ info_area = document.getElementById("area");
 
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
+window.onresize = function(event) {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+};
 var stage = new createjs.Stage("mainCanvas");
 stage.enableMouseOver(10);
 stage.mouseMoveOutside = true;
@@ -130,11 +134,9 @@ function drawPoint(x, y, color="red", isCorner=true){
 		});
   }
   else{
-    console.log("center");
     point.name = "center";
 
     point.on("pressmove", function (evt) {
-      console.log("movecenter");
       thisPrevX = this.x;
       thisPrevY = this.y;
 			this.x = evt.stageX + this.offset.x;
