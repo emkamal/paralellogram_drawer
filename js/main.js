@@ -51,7 +51,7 @@ function drawParalellogram(isRedraw=false){
   drawLine(points[0], points[2], "crossline1", "#ddd");
   drawLine(points[1], points[3], "crossline2", "#ddd");
 
-  info_area.innerHTML = 'Area: 231';
+  info_area.innerHTML = 'Area: '+calculateArea();
   info_area.className = 'active';
 
   createjs.Ticker.addEventListener("tick", tick);
@@ -122,6 +122,9 @@ function drawPoint(x, y, color="red", isCorner=true){
       centerPoint.x = points[0].x + ((points[2].x - points[0].x) / 2);
       centerPoint.y = points[0].y + ((points[2].y - points[0].y) / 2);
 
+      info_point[point.id].innerHTML = `Point ${point.id}: (${this.x},${this.y})`;
+      info_point[affectedPointId].innerHTML = `Point ${affectedPointId}: (${affectedPoint.x},${affectedPoint.y})`;
+
       drawParalellogram(true);
 
 		});
@@ -145,6 +148,7 @@ function drawPoint(x, y, color="red", isCorner=true){
         affectedPoint = stage.getChildByName("corner"+i);
         affectedPoint.x = affectedPoint.x + deltaX;
         affectedPoint.y = affectedPoint.y + deltaY;
+        info_point[i].innerHTML = `Point ${i}: (${affectedPoint.x},${affectedPoint.y})`;
       }
       setPoints();
       // centerPoint = stage.getChildByName("center");
@@ -159,6 +163,24 @@ function drawPoint(x, y, color="red", isCorner=true){
 
   stage.addChild(point);
   stage.update();
+}
+
+function calculateArea(){
+  pointObjects = [];
+  for(var i=0; i<4; i++){
+    pointObjects[i] = stage.getChildByName("corner"+i);
+    points[i] = new createjs.Point(pointObjects[i].x, pointObjects[i].y);
+  }
+
+  heightX = Math.abs(points[0].x - points[3].x);
+  heightY = Math.abs(points[0].y - points[3].y);
+  height = Math.sqrt(Math.pow(heightX, 2) + Math.pow(heightY, 2));
+
+  widthX = Math.abs(points[2].x - points[3].x);
+  widthY = Math.abs(points[2].y - points[3].y);
+  width = Math.sqrt(Math.pow(widthX, 2) + Math.pow(widthY, 2));
+
+  return width * height;
 }
 
 function setPoints(){
@@ -194,4 +216,12 @@ function resetCanvas(){
   stage.clear();
   points = [];
   pointCount = 0;
+
+  for(var i = 0; i < 4; i++){
+    info_point[i].innerHTML = "";
+    info_point[i].className = "";
+  }
+
+  info_area.innerHTML = "";
+  info_area.className = "";
 }
