@@ -45,7 +45,7 @@ function drawParalellogram(){
   calculateEndPoint(pointsX,pointsY)
   // pointsX[pointCount] = 0
   // pointsY[pointCount] = pointsY[pointCount-1];
-var point = new createjs.Shape();
+  var point = new createjs.Shape();
   point.graphics.beginStroke("red").beginFill("rgba(255,255,255,0.5)").drawCircle(0, 0, 11);
   point.x = pointsX[pointCount];
   point.y = pointsY[pointCount];
@@ -61,6 +61,20 @@ var point = new createjs.Shape();
   console.log(pointsX[i]);
   console.log(pointsY[i]);
   line = drawLine(pointsX[pointsX.length-1], pointsY[pointsX.length-1], pointsX[0], pointsY[0]);
+  stage.addChild(line);
+  stage.update();
+
+  var point = new createjs.Shape();
+  point.graphics.beginStroke("yellow").beginFill("rgba(255,255,255,0.5)").drawCircle(0, 0, 11);
+  point.x = pointsX[0] + ((pointsX[2] - pointsX[0]) / 2);
+  point.y = pointsY[0] + ((pointsY[2] - pointsY[0]) / 2);
+  point.cursor = "pointer";
+  stage.addChild(point);
+  stage.update();
+
+  line = drawLine(pointsX[0], pointsY[0], pointsX[2], pointsY[2]);
+  stage.addChild(line);
+  line = drawLine(pointsX[1], pointsY[1], pointsX[3], pointsY[3]);
   stage.addChild(line);
   stage.update();
 }
