@@ -1,79 +1,62 @@
+// Canvas initiazation
 canvas = document.getElementById("mainCanvas");
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
-
 var stage = new createjs.Stage("mainCanvas");
 stage.enableMouseOver(10);
 
-var pointCount = 0;
-var pointsX = [];
-var pointsY = [];
+pointCount = 0; // corner point counter
+points = []; // corner points in Point object
 
 document.getElementById("resetCanvas").addEventListener("click",resetCanvas());
 canvas.addEventListener("click", function(){
   if(pointCount < 3){
-    drawPoint(event.clientX, event.clientY, "red");
+    drawPoint(event.clientX, event.clientY);
     if(pointCount == 3){
       drawParalellogram();
     }
   }
   else{
     resetCanvas();
-    drawPoint(event.clientX, event.clientY, "red");
+    drawPoint(event.clientX, event.clientY);
   }
 });
 
-function drawPoint(x, y, color, isCorner=true){
+function drawParalellogram(){
+  points[3] = new createjs.Point(points[2].x - (points[1].x - points[0].x), points[2].y - (points[1].y - points[0].y));
+  drawPoint(points[3].x, points[3].y);
+
+  for(i=0; i<points.length-1; i++){
+    drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+  }
+  drawLine(points[3].x, points[3].y, points[0].x, points[0].y);
+
+  drawPoint(points[0].x + ((points[2].x - points[0].x) / 2), points[0].y + ((points[2].y - points[0].y) / 2), "gold", false);
+  drawLine(points[0].x, points[0].y, points[2].x, points[2].y, "#ddd");
+  drawLine(points[1].x, points[1].y, points[3].x, points[3].y, "#ddd");
+}
+
+function drawPoint(x, y, color="red", isCorner=true){
   var point = new createjs.Shape();
   point.graphics.beginStroke(color).beginFill("rgba(255,255,255,0.5)").drawCircle(0, 0, 11);
   point.x = x;
   point.y = y;
-  point.cursor = "pointer";
+  isCorner ? point.cursor = "pointer" : point.cursor = "move";
 
   if(isCorner){
-    pointsX[pointCount] = x;
-    pointsY[pointCount] = y;
+    points[pointCount] = new createjs.Point(x, y);
     pointCount += 1;
   }
 
   stage.addChild(point);
   stage.update();
 }
-function calculateEndPoint(pointsX, pointsY){
-  endY = pointsY[2] - (pointsY[1]-pointsY[0]);
-  endX = pointsX[2] - (pointsX[1]-pointsX[0]);
-  pointsX[pointCount] = endX;
-  pointsY[pointCount] = endY;
-}
-function drawParalellogram(){
-  calculateEndPoint(pointsX,pointsY)
-  // pointsX[pointCount] = 0
-  // pointsY[pointCount] = pointsY[pointCount-1];
-  drawPoint(pointsX[pointCount], pointsY[pointCount], "red");
-
-  var i=0;
-  for(i=0; i<pointsX.length; i++){
-    line = drawLine(pointsX[i], pointsY[i], pointsX[i+1], pointsY[i+1]);
-    stage.addChild(line);
-  }
-
-  line = drawLine(pointsX[pointsX.length-1], pointsY[pointsX.length-1], pointsX[0], pointsY[0]);
-  stage.addChild(line);
-  stage.update();
-
-  drawPoint(pointsX[0] + ((pointsX[2] - pointsX[0]) / 2), pointsY[0] + ((pointsY[2] - pointsY[0]) / 2), "yellow", false);
-
-  line = drawLine(pointsX[0], pointsY[0], pointsX[2], pointsY[2], "#ccc");
-  stage.addChild(line);
-  line = drawLine(pointsX[1], pointsY[1], pointsX[3], pointsY[3], "#ccc");
-  stage.addChild(line);
-  stage.update();
-}
 
 function drawLine(startX, startY, endX, endY, color="blue"){
   var line = new createjs.Shape();
   line.graphics.beginStroke(color).moveTo(startX, startY).lineTo(endX, endY);
-  return line;
+  stage.addChild(line);
+  stage.update();
 }
 
 function resetCanvas(){
