@@ -16,3 +16,6 @@
 </p>
 ## Author
 <p><a href="http://kamalabs.com">Mustafa Kamal</a></p>
+
+## Demo
+https://emkamal.github.io/paralellogram_drawer/
