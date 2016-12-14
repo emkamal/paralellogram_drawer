@@ -69,6 +69,11 @@ function drawPoint(x, y, color="red", isCorner=true){
   point.y = y;
   isCorner ? point.cursor = "pointer" : point.cursor = "move";
 
+  point.on("mousedown", function (evt) {
+    this.parent.addChild(this);
+    this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+  });
+
   if(isCorner){
 
     points[pointCount] = new createjs.Point(x, y);
@@ -76,13 +81,7 @@ function drawPoint(x, y, color="red", isCorner=true){
     point.id = pointCount;
     pointCount += 1;
 
-    point.on("mousedown", function (evt) {
-			this.parent.addChild(this);
-			this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
-		});
-
     point.on("pressmove", function (evt) {
-      console.log("this.id: "+this.name);
       thisPrevX = this.x;
       thisPrevY = this.y;
 			this.x = evt.stageX + this.offset.x;
@@ -115,7 +114,34 @@ function drawPoint(x, y, color="red", isCorner=true){
 		});
   }
   else{
+    console.log("center");
     point.name = "center";
+
+    point.on("pressmove", function (evt) {
+      console.log("movecenter");
+      thisPrevX = this.x;
+      thisPrevY = this.y;
+			this.x = evt.stageX + this.offset.x;
+			this.y = evt.stageY + this.offset.y;
+      deltaX = this.x - thisPrevX;
+      deltaY = this.y - thisPrevY;
+			// indicate that the stage should be updated on the next tick:
+			update = true;
+
+      for(var i=0; i < 4; i++){
+        affectedPoint = stage.getChildByName("corner"+i);
+        affectedPoint.x = affectedPoint.x + deltaX;
+        affectedPoint.y = affectedPoint.y + deltaY;
+      }
+      setPoints();
+      // centerPoint = stage.getChildByName("center");
+      //
+      // centerPoint.x = points[0].x + ((points[2].x - points[0].x) / 2);
+      // centerPoint.y = points[0].y + ((points[2].y - points[0].y) / 2);
+
+      drawParalellogram(true);
+
+		});
   }
 
   stage.addChild(point);
