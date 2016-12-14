@@ -20,10 +20,6 @@ canvas.addEventListener("click", function(){
       drawParalellogram();
     }
   }
-  else{
-    resetCanvas();
-    drawPoint(event.clientX, event.clientY);
-  }
 });
 
 /**
