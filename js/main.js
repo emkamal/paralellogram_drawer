@@ -22,7 +22,7 @@ points = []; // corner points in Point object
 var lineContainer = new createjs.Container();
 
 resetButton.addEventListener("click",resetCanvas());
-canvas.addEventListener("click", function(){
+canvas.addEventListener("click", function(event){
   if(pointCount < 3){
     drawPoint(event.clientX, event.clientY);
     if(pointCount == 3){
