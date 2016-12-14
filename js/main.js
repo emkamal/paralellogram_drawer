@@ -180,7 +180,7 @@ function calculateArea(){
   widthY = Math.abs(points[2].y - points[3].y);
   width = Math.sqrt(Math.pow(widthX, 2) + Math.pow(widthY, 2));
 
-  return width * height;
+  return Math.round(width * height);
 }
 
 function setPoints(){

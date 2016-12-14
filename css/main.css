@@ -128,6 +128,41 @@ textarea {
 .bottombar p.active{
   opacity: 1;
 }
+.aboutlink {
+    display: block;
+    padding: 1em 0;
+}
+#about{
+  position: fixed;
+  top: 99999px; bottom: 0;
+  left: 0; right: 0;
+  background: rgba(0,0,0, 0.95);
+  z-index: 9999;
+  color:#eee;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+#about:target{
+  top: 0;
+  opacity: 1;
+}
+a.closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(255, 0, 0, 0.23);
+    display: block;
+    padding: 0 0.5em;
+    font-size: 2.5em;
+    line-height: 1.5em;
+    color: rgba(255, 255, 255, 0.41);
+    transition: 0.25s;
+}
+a.closeButton:hover {
+    text-decoration: none;
+    background: rgba(255, 0, 0, 0.3);
+    color: rgba(255,255,255,0.75);
+}
 
 
 

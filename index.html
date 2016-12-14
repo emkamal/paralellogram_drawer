@@ -19,22 +19,11 @@
         <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Paralellogram drawer</a>
+            <div class="navbar-header pull-left">
+              <a class="navbar-brand" href="#">Paralellogram Drawer</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
-
-            </div><!-- /.navbar-collapse -->
+            <a href="#about" class="pull-right aboutlink">About</a>
           </div><!-- /.container-fluid -->
         </nav>
 
@@ -47,6 +36,28 @@
           <p class="infotext" id="point3"></p>
           <p class="infotext" id="point4"></p>
           <button id="resetCanvas" onclick="resetCanvas()" class="btn btn-default pull-right">Reset Canvas</button>
+        </div>
+
+        <div id="about">
+          <div class="container">
+            <h1>Paralellogram Drawer</h1>
+            <p>
+              This is a simple Javascript tool to draw a paralellogram on an HTML5 page using canvas.
+              It utilizes easel.js for canvas manipulation. Bootstrap CSS for a little bit of styling.
+            </p>
+            <h2>How to use</h2>
+            <p>
+              Just click around on the canvas and you will see how it works.
+              When you click on the canvas, a circle will appear on the spot that you click.
+              If you click three times on different spot on the canvas,
+              it will draw a paralellogram based on the 3 points that you have selected.
+              There is info bar at the bottom where you can see the coordinate of the points and also the area of the paralellogram.
+              The area is on pixel unit.
+            </p>
+            <h2>Author</h2>
+            <p><a href="http://kamalabs.com">Mustafa Kamal</a></p>
+          </div>
+          <a class="closeButton" href="#">&times;</a>
         </div>
 
         <script src="js/plugins.js"></script>
