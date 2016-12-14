@@ -103,16 +103,30 @@ textarea {
   background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
   background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
 }
-.header {
-    position: fixed;
-    background: rgba(0, 0, 0, 0.1);
-    width: 100%;
-    padding: 20px;
-}
 #reset {
     position: absolute;
     top: 20px;
     right: 20px;
+}
+.bottombar{
+  position: fixed; bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 20px;
+}
+.bottombar p {
+    float: left;
+    border: 1px solid #ccc;
+    padding: 5px 5px;
+    font-size: 0.8em;
+    margin: 0 5px 5px 0;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 3px;
+    opacity: 0;
+    transition: 0.25s;
+}
+.bottombar p.active{
+  opacity: 1;
 }
 
 

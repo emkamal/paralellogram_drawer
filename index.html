@@ -32,13 +32,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <button id="resetCanvas" onclick="resetCanvas()" class="btn btn-default navbar-btn">Reset Canvas</button>
+
 
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
 
         <canvas id="mainCanvas"></canvas>
+
+        <div class="bottombar container-fluid">
+          <p class="infotext" id="area"></p>
+          <p class="infotext" id="point1"></p>
+          <p class="infotext" id="point2"></p>
+          <p class="infotext" id="point3"></p>
+          <p class="infotext" id="point4"></p>
+          <button id="resetCanvas" onclick="resetCanvas()" class="btn btn-default pull-right">Reset Canvas</button>
+        </div>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>

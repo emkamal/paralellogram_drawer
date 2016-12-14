@@ -1,5 +1,14 @@
 // Canvas initiazation
 canvas = document.getElementById("mainCanvas");
+resetButton = document.getElementById("resetCanvas");
+
+var info_point = [];
+info_point[0] = document.getElementById("point1");
+info_point[1] = document.getElementById("point2");
+info_point[2] = document.getElementById("point3");
+info_point[3] = document.getElementById("point4");
+info_area = document.getElementById("area");
+
 canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
 var stage = new createjs.Stage("mainCanvas");
@@ -12,7 +21,7 @@ pointCount = 0; // corner point counter
 points = []; // corner points in Point object
 var lineContainer = new createjs.Container();
 
-document.getElementById("resetCanvas").addEventListener("click",resetCanvas());
+resetButton.addEventListener("click",resetCanvas());
 canvas.addEventListener("click", function(){
   if(pointCount < 3){
     drawPoint(event.clientX, event.clientY);
@@ -39,9 +48,11 @@ function drawParalellogram(isRedraw=false){
   }
   drawLine(points[3], points[0], "sideline3");
 
-
   drawLine(points[0], points[2], "crossline1", "#ddd");
   drawLine(points[1], points[3], "crossline2", "#ddd");
+
+  info_area.innerHTML = 'Area: 231';
+  info_area.className = 'active';
 
   createjs.Ticker.addEventListener("tick", tick);
 }
@@ -79,6 +90,8 @@ function drawPoint(x, y, color="red", isCorner=true){
     points[pointCount] = new createjs.Point(x, y);
     point.name = "corner"+pointCount;
     point.id = pointCount;
+    info_point[pointCount].innerHTML = `Point ${pointCount+1}: (${x},${y})`;
+    info_point[pointCount].className = 'active';
     pointCount += 1;
 
     point.on("pressmove", function (evt) {
